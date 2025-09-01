@@ -1,5 +1,8 @@
 # ola... adios
 ## ecologo por aburrimiento <3
-![yo](D:/Informatica_ecologica/Imagenes/lol3.jpeg)
+me gusta la informatica aplicada a la ecologia, aunq me deje ciego y sin neuronas.
+me gusta en general la ecologia peo a veces me aburre.
+
+# #ecologiadebaja
 
 
