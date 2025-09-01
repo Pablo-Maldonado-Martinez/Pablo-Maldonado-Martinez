@@ -34,5 +34,5 @@ ecologia x rauw: ra-rauw
 ------------------------
 
 lit yo, cuando ecología:
-!(D:/Informatica_ecologica/Imagenes/lol4.gif)
+![](D:/Informatica_ecologica/Imagenes/lol4.gif)
 
