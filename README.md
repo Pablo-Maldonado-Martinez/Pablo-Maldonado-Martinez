@@ -34,5 +34,5 @@ ecologia x rauw: ra-rauw
 ------------------------
 
 lit yo, cuando ecología:
-![...]([https://tenor.com/es/view/cat-the-voices-thevoices-cat-the-voices-cat-thevoices-gif-10261263063736228754])
+!(D:/Informatica_ecologica/Imagenes/lol4.gif)
 
