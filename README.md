@@ -1,10 +1,8 @@
-# bienvenidx a un perfil vacío
-## ecologo por aburrimiento <3
+# ecologo Pablito  <3
 
-me gusta la informatica aplicada a la ecologia, aunq me deje ciego y sin neuronas.
+### ecología <- _ecos_: casa, _logos_: estudio
 
-me gusta en general la ecologia peo a veces me aburre.
-
+----------------------
 ecologia x brat: pump it that
 
 ecologia x sabrina carpenter: please please
@@ -19,7 +17,22 @@ ecologia x melanie martinez: no VOID
 
 ecologia x rauw: ra-rauw
 
- #ecologodesdelacuna
- 
+-----------------------
 
+ #ecologodesdelacuna
+
+----------------------
+
+## mis sueños
+
+1. Ser analista de datos para priorizar ANP's
+2. Ser secretario de medio ambiente
+3. Ser diputado
+4. Ser dueño de una planta de composta
+5. Ser el primer presidente ecólogo
+
+------------------------
+
+lit yo, cuando ecología:
+![...]([https://tenor.com/es/view/cat-the-voices-thevoices-cat-the-voices-cat-thevoices-gif-10261263063736228754])
 
