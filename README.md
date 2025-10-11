@@ -1,4 +1,4 @@
-# ecologo Pablito  <3
+# ecólogo Pablito  <3
 
 ### ecología <- _ecos_ =casa, _logos_ = estudio
 
