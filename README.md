@@ -1,25 +1,6 @@
 # ecologo Pablito  <3
 
-### ecología <- _ecos_: casa, _logos_: estudio
-
-----------------------
-ecologia x brat: pump it that
-
-ecologia x sabrina carpenter: please please
-
-ecologia x billie eilish : duh!
-
-ecologia x dua lipa: levitating!
-
-ecologia x olivia rodrigo: brutal
-
-ecologia x melanie martinez: no VOID
-
-ecologia x rauw: ra-rauw
-
------------------------
-
- #ecologodesdelacuna
+### ecología <- _ecos_ =casa, _logos_ = estudio
 
 ----------------------
 
@@ -35,5 +16,5 @@ ecologia x rauw: ra-rauw
 
 lit yo, cuando ecología:
 
-<img src="D:/Informatica_ecologica/Imagenes/lol4.gif" alt="yo" width="300px">
+<img src="D:/Informatica_ecologica/Imagenes/lol4.gif" alt="yo">
 
