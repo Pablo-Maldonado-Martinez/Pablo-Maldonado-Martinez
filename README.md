@@ -16,4 +16,4 @@
 
 lit yo, cuando ecología:
 
-![yo](https://github.com/PAblo-Maldonado-Martinez/Pablo-Maldonado-Martinez/lol4.gif)
+![](https://github.com/Pablo-Maldonado-Martinez/Pablo-Maldonado-Martinez/blob/main/lol4.gif)
