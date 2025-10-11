@@ -16,5 +16,4 @@
 
 lit yo, cuando ecología:
 
-<img src="D:/Informatica_ecologica/Imagenes/lol4.gif" alt="yo">
-
+![yo](https://github.com/PAblo-Maldonado-Martinez/Pablo-Maldonado-Martinez/lol4.gif)
