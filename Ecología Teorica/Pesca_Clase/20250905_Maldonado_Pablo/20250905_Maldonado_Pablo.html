@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Pablo Maldonado">
+
+<title>Modelo Logístico y Rendimiento Máximo Sostenible (RMS)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="20250905_Maldonado_Pablo_files/libs/clipboard/clipboard.min.js"></script>
+<script src="20250905_Maldonado_Pablo_files/libs/quarto-html/quarto.js"></script>
+<script src="20250905_Maldonado_Pablo_files/libs/quarto-html/popper.min.js"></script>
+<script src="20250905_Maldonado_Pablo_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="20250905_Maldonado_Pablo_files/libs/quarto-html/anchor.min.js"></script>
+<link href="20250905_Maldonado_Pablo_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="20250905_Maldonado_Pablo_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="20250905_Maldonado_Pablo_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="20250905_Maldonado_Pablo_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="20250905_Maldonado_Pablo_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Modelo Logístico y Rendimiento Máximo Sostenible (RMS)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Pablo Maldonado </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="introducción" class="level2">
+<h2 class="anchored" data-anchor-id="introducción">1. Introducción</h2>
+<p>En esta práctica modelaremos el crecimiento poblacional de una población de peces en una laguna de Alchichica usaremos el <strong>modelo logístico</strong> y calcularemos el <strong>Rendimiento Máximo Sostenible (RMS)</strong>. El RMS nos indica cuál es la tasa máxima de extracción (pesca) que permite mantener la población sin colapsar a largo plazo.</p>
+</section>
+<section id="librerías" class="level2">
+<h2 class="anchored" data-anchor-id="librerías">2. Librerías</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)<span class="co">#Para graficar</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)<span class="co">#Para ordenar</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyr' was built under R version 4.2.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)<span class="co">#Para manejo de bases de datos</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.2.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+</div>
+</section>
+<section id="parámetros-del-modelo" class="level2">
+<h2 class="anchored" data-anchor-id="parámetros-del-modelo">3. Parámetros del modelo</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parámetros del modelo logístico</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fl">0.3</span>     <span class="co"># tasa intrínseca de crecimiento</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="dv">1000</span>    <span class="co"># capacidad de carga</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>N0 <span class="ot">&lt;-</span> <span class="dv">100</span>    <span class="co"># población inicial</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Tiempo de simulación</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>time <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="at">by =</span> <span class="dv">1</span>)<span class="co">#define 51 unidades de tiempo (de 0 a 50) </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="modelo-de-crecimiento-logístico" class="level2">
+<h2 class="anchored" data-anchor-id="modelo-de-crecimiento-logístico">4. Modelo de crecimiento logístico</h2>
+<p>Es un modelo matemático que describe cómo una población crece de manera acelerada al principio (cuando hay pocos individuos y muchos recursos), pero se estabiliza al acercarse a la capacidad de carga del ambiente (K), debido a la competencia por recursos.</p>
+<p>Y se expresa de la siguiente forma: <img src="https://ellegadodenewton.wordpress.com/wp-content/uploads/2020/02/tasa.jpg?w=401" class="img-fluid" alt="La Propagación de Un Virus en Condiciones Restringidas – El Caso del Crecimiento  Logístico – Parte 3."></p>
+<p>Este modelo describe un crecimiento que comienza de forma exponencial pero se estabiliza cuando la población se acerca a la capacidad de carga del ambiente.</p>
+</section>
+<section id="creación-de-la-función-logistic_growth" class="level1">
+<h1>5. Creación de la función logistic_growth()</h1>
+<p>El objetivo de logistic_growth() es calcular la tasa de cambio poblacional (dN) en un momento dado según el modelo logístico de crecimiento. Este modelo considera que el crecimiento poblacional no es infinito, sino que disminuye conforme la población se acerca a la capacidad de carga del ambiente.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Definimos una función llamada logistic_growth que recibe tres parámetros:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># N = tamaño poblacional en el tiempo actual</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># r = tasa intrínseca de crecimiento</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># K = capacidad de carga del ambiente</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Se calcula la tasa de cambio de la población (dN) usando la ecuación logística:</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># dN/dt = r * N * (1 - N/K)</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Este valor representa cuánto cambiará la población en la siguiente unidad de tiempo</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Se devuelve el valor calculado de dN</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Función logística de crecimiento poblacional</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>logistic_growth <span class="ot">&lt;-</span> <span class="cf">function</span>(N, r, K) {</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  dN <span class="ot">&lt;-</span> r <span class="sc">*</span> N <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> N <span class="sc">/</span> K)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(dN)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="simulación-sin-extracción" class="level2">
+<h2 class="anchored" data-anchor-id="simulación-sin-extracción">6. Simulación sin extracción</h2>
+<p>En esta sección el modelo logístico en R simula cómo cambia el tamaño de una población a lo largo del tiempo sin aplicar extracción o cosecha, es decir, sin eliminar individuos del sistema.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vector para almacenar la población</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(time))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>population[<span class="dv">1</span>] <span class="ot">&lt;-</span> N0 <span class="co">#Cuando haces simulaciones dinámicas (como el modelo logístico), necesitas partir de un valor inicial conocido. Ese valor es el tamaño poblacional al inicio del tiempo simulado, en este caso, N0.</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulación de crecimiento sin pesca</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Bucle for que simula el crecimiento poblacional a lo largo del tiempo, aplicando el modelo de crecimiento logístico definido antes.</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#1. Inicia un bucle que va desde t = 2 hasta el final del vector time (en este caso, t = 51, ya que time va de 0 a 50).</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#for (t in 2:length(time)) {</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#2.  population[t] &lt;- population[t - 1] + logistic_growth(population[t - 1], r, K)</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#calcula el tamaño poblacional en el tiempo t, utilizando el valor anterior (t - 1) y aplicando la fórmula del modelo logístico.</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#3.evita que la población supere la capacidad de carga K</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># if (population[t] &gt; K) population[t] &lt;- K</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(time)) {</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  population[t] <span class="ot">&lt;-</span> population[t <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> <span class="fu">logistic_growth</span>(population[t <span class="sc">-</span> <span class="dv">1</span>], r, K)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (population[t] <span class="sc">&gt;</span> K) population[t] <span class="ot">&lt;-</span> K</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(population)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 100.0000 127.0000 160.2613 200.6346 248.7487 304.8105 368.3808 438.1838
+ [9] 512.0374 586.9939 659.7235 727.0701 786.6018 836.9596 877.8971 910.0552
+[17] 934.6116 952.9455 966.3976 976.1396 983.1269 988.1034 991.6299 994.1199
+[25] 995.8736 997.1064 997.9720 998.5791 999.0048 999.3031 999.5120 999.6583
+[33] 999.7608 999.8325 999.8828 999.9179 999.9426 999.9598 999.9718 999.9803
+[41] 999.9862 999.9903 999.9932 999.9953 999.9967 999.9977 999.9984 999.9989
+[49] 999.9992 999.9994 999.9996</code></pre>
+</div>
+</div>
+<p>Cada valor dentro del vector population es el tamaño poblacional proyectado en ese año.</p>
+<p>Esto significa:</p>
+<p>• En el año 0, había 100 individuos.</p>
+<p>• En el año 1, la población aumentó a 127.</p>
+<p>• En el año 2, aumentó a 160.26.</p>
+<p>A partir del año ~25-30, la población se estabiliza cerca de K = 1000 (ya no crece significativamente).</p>
+</section>
+<section id="cálculo-del-rendimiento-máximo-sostenible-rms" class="level2">
+<h2 class="anchored" data-anchor-id="cálculo-del-rendimiento-máximo-sostenible-rms">7. Cálculo del Rendimiento Máximo Sostenible (RMS)</h2>
+<p>El <strong>Rendimiento Máximo Sostenible (RMS)</strong> es un concepto central en la gestión pesquera. Representa la <strong>mayor cantidad de individuos que se puede extraer por unidad de tiempo</strong> sin comprometer la sostenibilidad de la población a largo plazo. Se basa en el supuesto de que la población alcanza su <strong>tasa máxima de crecimiento</strong> cuando su tamaño poblacional es igual a la <strong>mitad de la capacidad de carga del ambiente</strong>.</p>
+<p><img src="images/Captura%20de%20pantalla%202025-09-05%20095033.png" class="img-fluid"></p>
+<p>El <strong>crecimiento máximo</strong> ocurre cuando ( N = ). Sustituyendo este valor en la ecuación:</p>
+<p><img src="images/Captura%20de%20pantalla%202025-09-05%20095006.png" class="img-fluid"></p>
+<p>Por lo tanto, el RMS se calcula con:</p>
+<p><img src="images/Captura%20de%20pantalla%202025-09-05%20095025.png" class="img-fluid"></p>
+<p>Este valor indica la cantidad <strong>óptima</strong> de individuos que pueden extraerse sin agotar la población.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fórmula RMS = (r * K) / 4</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>RMS <span class="ot">&lt;-</span> (r <span class="sc">*</span> K) <span class="sc">/</span> <span class="dv">4</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Rendimiento Máximo Sostenible (RMS):"</span>, RMS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rendimiento Máximo Sostenible (RMS): 75</code></pre>
+</div>
+</div>
+<section id="interpretación-del-rms-75" class="level4">
+<h4 class="anchored" data-anchor-id="interpretación-del-rms-75">Interpretación del RMS = 75</h4>
+<p>Puedes extraer hasta 75 individuos <strong>por unidad de tiempo</strong> sin poner en riesgo la sostenibilidad de la población.</p>
+<p>Este valor representa el máximo rendimiento promedio que se puede sostener indefinidamente bajo condiciones ecológicas constantes, sin que la población decline.</p>
+</section>
+</section>
+<section id="simulación-con-extracción-constante" class="level2">
+<h2 class="anchored" data-anchor-id="simulación-con-extracción-constante">8. Simulación con extracción constante</h2>
+<p>La función simular_con_pesca() simula la dinámica de una población que crece según el modelo logístico pero que además sufre una extracción constante (F) en cada unidad de tiempo. Esta extracción representa la pesca o cosecha constante.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Función de simulación con pesca (extracción constante)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>simular_con_pesca <span class="ot">&lt;-</span> <span class="cf">function</span>(N0, r, K, F, time) {</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  N <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(time))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  N[<span class="dv">1</span>] <span class="ot">&lt;-</span> N0</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(time)) {</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    crecimiento <span class="ot">&lt;-</span> <span class="fu">logistic_growth</span>(N[t <span class="sc">-</span> <span class="dv">1</span>], r, K)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    N[t] <span class="ot">&lt;-</span> N[t <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> crecimiento <span class="sc">-</span> F</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (N[t] <span class="sc">&lt;</span> <span class="dv">0</span>) N[t] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (N[t] <span class="sc">&gt;</span> K) N[t] <span class="ot">&lt;-</span> K</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(N)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Este paso simula la dinámica poblacional cuando, además del crecimiento natural según el modelo logístico, se resta una cantidad fija de individuos (la cosecha) en cada ciclo temporal.</p>
+<section id="tres-escenarios-de-pesca" class="level4">
+<h4 class="anchored" data-anchor-id="tres-escenarios-de-pesca">Tres escenarios de pesca</h4>
+<p>A continuación se muestran tres escenarios simulados de extracción pesquera con diferentes tasas constantes (<code>F</code>):</p>
+<table class="table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 8%">
+<col style="width: 77%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Valor</th>
+<th>Interpretación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>F_bajo</code></td>
+<td>30</td>
+<td>Pesca baja → la población crece y se estabiliza</td>
+</tr>
+<tr class="even">
+<td><code>F_optimo</code></td>
+<td>RMS</td>
+<td>Pesca óptima → corresponde al Máximo Rendimiento Sostenible (RMS)</td>
+</tr>
+<tr class="odd">
+<td><code>F_alto</code></td>
+<td>100</td>
+<td>Pesca alta → puede llevar al colapso poblacional</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulamos con diferentes tasas de extracción</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>F_bajo <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>F_optimo <span class="ot">&lt;-</span> RMS</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>F_alto <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>pop_bajo <span class="ot">&lt;-</span> <span class="fu">simular_con_pesca</span>(N0, r, K, F_bajo, time)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>pop_optimo <span class="ot">&lt;-</span> <span class="fu">simular_con_pesca</span>(N0, r, K, F_optimo, time)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>pop_alto <span class="ot">&lt;-</span> <span class="fu">simular_con_pesca</span>(N0, r, K, F_alto, time)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pop_bajo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 100.00000  97.00000  93.27730  88.65029  82.88772  75.69292  66.68197
+ [8]  55.35262  41.03923  22.84574   0.00000   0.00000   0.00000   0.00000
+[15]   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000
+[22]   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000
+[29]   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000
+[36]   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000
+[43]   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000
+[50]   0.00000   0.00000</code></pre>
+</div>
+</div>
+<pre><code>•   Inicio (valor 100): la población empieza en 100 individuos (N0 = 100).
+•   Luego, cada año (o unidad de tiempo), se aplica el modelo logístico y se restan 30 individuos debido a la pesca.
+•   Esto hace que la población disminuya progresivamente.
+•   En el año 11, la población llega a 0.
+•   A partir de ahí, se mantiene en cero: es decir, la población colapsó por sobreexplotación.</code></pre>
+</section>
+</section>
+<section id="visualización-con-ggplot2" class="level2">
+<h2 class="anchored" data-anchor-id="visualización-con-ggplot2">9. Visualización con ggplot2</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construimos un data frame para graficar</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tiempo =</span> time,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Sin_extraccion =</span> population,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Extraccion_baja =</span> pop_bajo,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Extraccion_RMS =</span> pop_optimo,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Extraccion_alta =</span> pop_alto</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Transponemos la base de datos</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(df, <span class="at">cols =</span> <span class="sc">-</span>tiempo, <span class="at">names_to =</span> <span class="st">"Escenario"</span>, <span class="at">values_to =</span> <span class="st">"Poblacion"</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Graficamos</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_long, <span class="fu">aes</span>(<span class="at">x =</span> tiempo, <span class="at">y =</span> Poblacion, <span class="at">color =</span> Escenario)) <span class="sc">+</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> K <span class="sc">/</span> <span class="dv">2</span>, <span class="at">linetype =</span> <span class="st">"dotted"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">40</span>, <span class="at">y =</span> K <span class="sc">/</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">30</span>, <span class="at">label =</span> <span class="st">"K/2 (máximo crecimiento)"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Simulación del crecimiento poblacional con distintas tasas de pesca"</span>,</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Modelo logístico y extracción constante"</span>,</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Tiempo"</span>,</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Tamaño poblacional"</span>,</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Escenario"</span>) <span class="sc">+</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Sin_extraccion"</span> <span class="ot">=</span> <span class="st">"pink"</span>,</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Extraccion_RMS"</span> <span class="ot">=</span> <span class="st">"lightblue"</span>,</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Extraccion_baja"</span> <span class="ot">=</span> <span class="st">"cyan"</span>,</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Extraccion_alta"</span> <span class="ot">=</span> <span class="st">"purple"</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="20250905_Maldonado_Pablo_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>La gráfica muestra cómo evoluciona el tamaño poblacional a lo largo del tiempo bajo cuatro escenarios diferentes:</p>
+<ol type="1">
+<li><p>Sin extracción (línea morada) • La población crece rápidamente al inicio debido a abundancia de recursos. • Luego se estabiliza justo en la capacidad de carga K = 1000. • Este comportamiento es típico del modelo logístico clásico. • K/2 (~500) representa el punto de mayor tasa de crecimiento.</p></li>
+<li><p>Extracción óptima = RMS (línea azul/cian) • Se extrae una cantidad igual al Rendimiento Máximo Sostenible (RMS = 75). • La población cae rápidamente hasta cero, lo que indica que este nivel de extracción es insostenible en el largo plazo con los valores dados de r, K y N0. • Aunque el RMS teóricamente maximiza la producción, en este caso el modelo muestra que no se recupera la población si la extracción inicia cuando el tamaño poblacional es pequeño.</p></li>
+<li><p>Extracción baja (línea verde) • Se extrae poco (F = 30), pero la población también colapsa. • Aunque menor que el RMS, la extracción inicia cuando la población aún es baja (N0 = 100), por lo tanto, no hay suficiente crecimiento para compensar la pérdida.</p></li>
+<li><p>Extracción alta (línea roja) • Con F = 100, el colapso es inmediato, ya que se extrae más de lo que puede crecer. • En este escenario, la población desaparece en los primeros pasos.</p></li>
+</ol>
+</section>
+<section id="conclusiones" class="level2">
+<h2 class="anchored" data-anchor-id="conclusiones">10. Conclusiones</h2>
+<ul>
+<li><p>El <strong>RMS</strong> se alcanza cuando la población está en <strong>K/2</strong>, punto en el cual el crecimiento es máximo.</p></li>
+<li><p>Si la tasa de extracción es mayor al RMS, la población colapsa.</p></li>
+<li><p>Si es menor, la población puede mantenerse pero no se aprovecha todo el rendimiento posible.</p></li>
+</ul>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
