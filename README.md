@@ -17,3 +17,13 @@
 lit yo, cuando ecología:
 
 ![](https://github.com/Pablo-Maldonado-Martinez/Pablo-Maldonado-Martinez/blob/main/lol4.gif)
+
+-----------------------
+
+## contacto
+
+aquí dejo mis medios de comunicación para cualquier información respecto a mi perfíl.
+
+* **correo personal:** pabloadair2712@gmail.com
+
+* **correo institucional:** pablo_maldonado@comunidad.unam.mx
